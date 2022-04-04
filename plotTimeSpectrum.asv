@@ -1,8 +1,6 @@
-function plotTimeSpectrum(time,signal,c,omega0,n,name,paused)
+function plotTimeSpectrum(time,signal,c,omega0,n,name,)
 
-if nargin<7
-    paused=true;
-end
+
 armonica=[];
 fourier_series=[];
 spettro_amp=[];
@@ -27,7 +25,7 @@ ylabel(name)
 grid on
 
 hold on
-if paused;pause;end
+pause
 
 sf=zeros(length(time),1);
 for idx=1:20
@@ -54,7 +52,7 @@ for idx=1:20
     end
 
     if (idx==1)
-        if paused;pause;end
+        pause
     end
     subplot(3,2,4)
     if not(isempty(spettro_amp))
@@ -71,7 +69,7 @@ for idx=1:20
     linkaxes(hpl([3 4]),'y')
 
     if (idx==1)
-        if paused;pause;end
+        pause
     end
 
     subplot(3,2,6)
@@ -93,9 +91,9 @@ for idx=1:20
     if (abs(c(idx))<1e-3 && idx>10)
         continue;
     elseif (idx<10)
-        if paused;pause;end
+        pause
     elseif (idx<100)
-        if paused;pause(0.1);end
+        pause(0.5)
     else
         %drawnow
     end

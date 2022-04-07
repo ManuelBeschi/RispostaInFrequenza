@@ -1,0 +1,75 @@
+clear all;close all;clc;
+
+
+w=1;
+
+dt=1e-3;
+
+T=2*pi/w;
+
+
+t=(0:dt:3*T)';
+
+
+u1=cos(w*t);
+
+
+figure
+
+for idx=1:4
+hpl(idx)=subplot(2,2,idx);
+end
+
+subplot(2,2,1)
+plot(t,u1)
+hold on
+grid on
+xlabel('tempo')
+ylabel('sinusoidi')
+ylim([-2 2])
+
+subplot(2,2,2)
+stem(w,1,'k')
+hold on
+grid on
+xlabel('pulsazione')
+ylabel('ampiezza')
+ylim([-2 2])
+
+
+subplot(2,2,4)
+stem(w,0,'k')
+hold on
+grid on
+xlabel('pulsazione')
+ylabel('fase')
+ylim([-360 360])
+
+
+subplot(2,2,3)
+hold on
+grid on
+xlabel('Re')
+ylabel('Im')
+xlim([-2 2])
+ylim([-2 2])
+hq=quiver(0,0,1,0,'k');
+set(hq,'MaxHeadSize',1e2,'AutoScaleFactor',1);
+axis equal
+
+
+
+pha=deg2rad(45);
+amp=1;
+
+u2=amp*cos(wt+pha);
+
+subplot(2,2,1)
+plot(t,u2,'r')
+subplot(2,2,2)
+plot(w,amp,'r')
+subplot(2,2,4)
+plot(w,rad2deg(pha))
+subplot(2,2,1)
+hq2=quiver(0,0,amp*cos(pha),amp*sin(pha));
+

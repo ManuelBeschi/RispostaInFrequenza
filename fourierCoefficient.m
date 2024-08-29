@@ -1,13 +1,16 @@
 function c=fourierCoefficient(t,y,omega0,n)
 
+if n==0
+    c=mean(y);
+else
+    T=2*pi/omega0;
+    periods=floor(t(end)/T);
+    assert(periods>=1)
 
-T=2*pi/omega0;
-periods=floor(t(end)/T);
-assert(periods>=1)
-
-idx=find(t>=(t(end)-periods*T),1); %take only the last periods*T seconds
-t=t(idx:end);
-y=y(idx:end);
+    idx=find(t>=(t(end)-periods*T),1); %take only the last periods*T seconds
+    t=t(idx:end);
+    y=y(idx:end);
 
 
-c=trapz(t,y.*exp(-1i*n*omega0*t))/T/periods; % from Fourier definition, averaged on multiple periods
+    c=trapz(t,y.*exp(-1i*n*omega0*t))/T/periods; % from Fourier definition, averaged on multiple periods
+end

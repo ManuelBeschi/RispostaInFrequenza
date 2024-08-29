@@ -1,16 +1,26 @@
-function plotTimeSpectrum(time,signal,c,omega0,n,name,paused)
+function plotTimeSpectrum(time,signal,c,omega0,n,name,paused,video)
 
+
+mean_signal=mean(signal);
 if nargin<7
     paused=true;
 end
+if nargin<8
+    video=false;
+end
+if video
+    writerObj = VideoWriter(sprintf('%s.avi',name));
+    writerObj.FrameRate=10;
+    open(writerObj);
+end
+
 armonica=[];
 fourier_series=[];
 spettro_amp=[];
 spettro_pha=[];
 omega=omega0*n;
 
-drawnow
-fig=figure;
+fig=figure('Position',[1 1 1600 1200]);
 drawnow
 for idx=1:6
     hpl(idx)=subplot(3,2,idx);
@@ -28,9 +38,15 @@ grid on
 
 hold on
 if paused;pause;end
+if video
+    F = getframe(gcf) ;           %// Capture the frame
+    for idx=1:20
+        writeVideo(writerObj,F)  %// add the frame to the movie
+    end
+end
 
 sf=zeros(length(time),1);
-for idx=1:20
+for idx=1:length(n)
     h=computeHarmonic(time,c(idx),omega0,n(idx));
     sf=sf+h;
 
@@ -56,6 +72,14 @@ for idx=1:20
     if (idx==1)
         if paused;pause;end
     end
+
+    if video && idx<10
+        F = getframe(gcf) ;           %// Capture the frame
+        for iframe=1:20
+            writeVideo(writerObj,F)  %// add the frame to the movie
+        end
+    end
+
     subplot(3,2,4)
     if not(isempty(spettro_amp))
         spettro_amp.Color=[0.4 0.4 0.4];
@@ -72,6 +96,13 @@ for idx=1:20
 
     if (idx==1)
         if paused;pause;end
+    end
+
+    if video && idx<10
+        F = getframe(gcf) ;           %// Capture the frame
+        for iframe=1:20
+            writeVideo(writerObj,F)  %// add the frame to the movie
+        end
     end
 
     subplot(3,2,6)
@@ -99,6 +130,18 @@ for idx=1:20
     else
         %drawnow
     end
-
+    drawnow
+    if video
+        F = getframe(gcf) ;           %// Capture the frame
+        writeVideo(writerObj,F)  %// add the frame to the movie
+    end
 end
 drawnow
+if video
+
+    F = getframe(gcf) ;           %// Capture the frame
+    for iframe=1:40
+        writeVideo(writerObj,F)  %// add the frame to the movie
+    end
+    close(writerObj);
+end

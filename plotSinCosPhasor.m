@@ -36,7 +36,8 @@ grid on
 xlabel('pulsazione')
 ylabel('ampiezza')
 ylim([-3 3])
-
+xlim([0 2])
+xlim('manual')
 
 subplot(2,2,4)
 stem(w,0,'k')
@@ -45,7 +46,8 @@ grid on
 xlabel('pulsazione')
 ylabel('fase')
 ylim([-360 360])
-
+xlim([0 2])
+xlim('manual')
 
 subplot(2,2,3)
 hold on
@@ -153,3 +155,27 @@ for ampiezza=2:-0.02:0.1
     h7.YData=[amp 2.5];
     pause(0.1)
 end
+
+
+
+%%
+angolo=0;
+amp=1;
+for omega=1:0.02:2
+    pha=deg2rad(angolo);
+    w=omega;
+    u2=amp*cos(w*t+pha);
+
+    h1.YData=u2;
+    h2.YData=amp;
+    h2.XData=w;
+    h3.YData=angolo;
+    h3.XData=w;
+    h4.UData=amp*cos(pha);
+    h4.VData=amp*sin(pha);
+    h7.XData=[-pha/w -pha/w];
+    h7.YData=[amp 2.5];
+    
+    pause(0.1)
+end
+

@@ -88,12 +88,12 @@ plotTimeSpectrum(time,output,cy,omega0,n,'posizione',false)
 
 %% Risposta in frequenza
 idxs=1:3;
-plotFrequencyResponse(omega,cr,cy,fr_F,idxs,"linear")
+plotFrequencyResponse(omega,cr,cy,fr_F_y_r,idxs,"linear")
 
 %% Risposta in frequenza
 idxs=omega<500;
-plotFrequencyResponse(omega,cr,cy,fr_F,idxs,"linear")
+plotFrequencyResponse(omega,cr,cy,fr_F_y_r,idxs,"linear")
 %%
-plotFrequencyResponse(omega,cr,cy,fr_F,idxs,"log")
+plotFrequencyResponse(omega,cr,cy,fr_F_y_r,idxs,"log")
 %%
-plotFrequencyResponse(omega,cr,cy,fr_F,idxs,"bode")
+plotFrequencyResponse(omega,cr,cy,fr_F_y_r,idxs,"bode")
